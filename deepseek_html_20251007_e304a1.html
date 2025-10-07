@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Числа Фибоначчи - Математическая гармония</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #2c3e50, #4a69bd);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .intro {
+            padding: 3rem 0;
+            text-align: center;
+            background-color: white;
+            margin-bottom: 2rem;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .intro p {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.2rem;
+            color: #555;
+        }
+        
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        @media (max-width: 768px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card h2 {
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #4a69bd;
+        }
+        
+        .sequence-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .sequence {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 1.5rem 0;
+            justify-content: center;
+        }
+        
+        .fib-number {
+            background: linear-gradient(135deg, #4a69bd, #2c3e50);
+            color: white;
+            padding: 12px 18px;
+            border-radius: 8px;
+            font-weight: bold;
+            min-width: 60px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .fib-number:hover {
+            transform: scale(1.1);
+        }
+        
+        .calculator {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .calculator h2 {
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #4a69bd;
+        }
+        
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #555;
+        }
+        
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        button {
+            background: linear-gradient(135deg, #4a69bd, #2c3e50);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .result {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            border-left: 4px solid #4a69bd;
+            display: none;
+        }
+        
+        .spiral-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+        
+        .spiral-container h2 {
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #4a69bd;
+        }
+        
+        .spiral-wrapper {
+            display: flex;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+        
+        #fibonacciSpiral {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        footer {
+            background: linear-gradient(135deg, #2c3e50, #4a69bd);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 2rem;
+        }
+        
+        .golden-ratio {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 1.5rem 0;
+        }
+        
+        .golden-ratio-box {
+            width: 100px;
+            height: 161.8px;
+            background: linear-gradient(135deg, #e67e22, #d35400);
+            margin: 0 10px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .golden-ratio-box.small {
+            width: 61.8px;
+            height: 100px;
+        }
+        
+        .golden-ratio-symbol {
+            font-size: 2rem;
+            margin: 0 15px;
+            color: #e67e22;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Числа Фибоначчи</h1>
+            <p>Математическая гармония в природе и искусстве</p>
+        </div>
+    </header>
+    
+    <section class="intro">
+        <div class="container">
+            <p>Последовательность Фибоначчи - это ряд чисел, где каждое последующее число является суммой двух предыдущих. Эта последовательность демонстрирует удивительные математические закономерности, которые встречаются в природе, искусстве и архитектуре.</p>
+        </div>
+    </section>
+    
+    <div class="container">
+        <div class="content-grid">
+            <div class="card">
+                <h2>Что такое числа Фибоначчи?</h2>
+                <p>Последовательность Фибоначчи начинается с 0 и 1, а каждое последующее число равно сумме двух предыдущих:</p>
+                <p style="text-align: center; font-weight: bold; margin: 1rem 0;">0, 1, 1, 2, 3, 5, 8, 13, 21, 34, ...</p>
+                <p>Эта последовательность была описана Леонардо Пизанским, известным как Фибоначчи, в его книге "Liber Abaci" в 1202 году.</p>
+            </div>
+            
+            <div class="card">
+                <h2>Золотое сечение</h2>
+                <p>Отношение последовательных чисел Фибоначчи приближается к золотому сечению (φ ≈ 1.6180339887) по мере увеличения чисел в последовательности.</p>
+                <div class="golden-ratio">
+                    <div class="golden-ratio-box small">1</div>
+                    <div class="golden-ratio-symbol">φ</div>
+                    <div class="golden-ratio-box">1.618</div>
+                </div>
+                <p>Это соотношение считается эстетически приятным и встречается во многих произведениях искусства и архитектуры.</p>
+            </div>
+        </div>
+        
+        <div class="sequence-container">
+            <h2>Первые 20 чисел Фибоначчи</h2>
+            <div class="sequence" id="fibSequence">
+                <!-- Числа будут добавлены через JavaScript -->
+            </div>
+        </div>
+        
+        <div class="calculator">
+            <h2>Калькулятор чисел Фибоначчи</h2>
+            <div class="input-group">
+                <label for="fibInput">Введите номер числа Фибоначчи (n):</label>
+                <input type="number" id="fibInput" min="0" max="100" value="10">
+            </div>
+            <button id="calculateBtn">Вычислить</button>
+            <div class="result" id="result">
+                <!-- Результат будет отображен здесь -->
+            </div>
+        </div>
+        
+        <div class="spiral-container">
+            <h2>Спираль Фибоначчи</h2>
+            <p>Спираль Фибоначчи строится путем соединения дуг, проведенных через квадраты со сторонами, равными числам Фибоначчи.</p>
+            <div class="spiral-wrapper">
+                <svg id="fibonacciSpiral" width="500" height="500" viewBox="0 0 500 500">
+                    <!-- Спираль будет нарисована через JavaScript -->
+                </svg>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>© 2023 Числа Фибоначчи - Изучайте математическую гармонию</p>
+        </div>
+    </footer>
+
+    <script>
+        // Генерация последовательности Фибоначчи
+        function generateFibonacciSequence(count) {
+            const sequence = [0, 1];
+            for (let i = 2; i < count; i++) {
+                sequence[i] = sequence[i-1] + sequence[i-2];
+            }
+            return sequence;
+        }
+        
+        // Отображение последовательности
+        function displaySequence() {
+            const sequence = generateFibonacciSequence(20);
+            const sequenceContainer = document.getElementById('fibSequence');
+            
+            sequence.forEach(num => {
+                const numberElement = document.createElement('div');
+                numberElement.className = 'fib-number';
+                numberElement.textContent = num;
+                sequenceContainer.appendChild(numberElement);
+            });
+        }
+        
+        // Вычисление n-го числа Фибоначчи
+        function fibonacci(n) {
+            if (n < 0) return "Ошибка: введите неотрицательное число";
+            if (n === 0) return 0;
+            if (n === 1) return 1;
+            
+            let a = 0, b = 1;
+            for (let i = 2; i <= n; i++) {
+                let temp = a + b;
+                a = b;
+                b = temp;
+            }
+            return b;
+        }
+        
+        // Обработчик для калькулятора
+        document.getElementById('calculateBtn').addEventListener('click', function() {
+            const input = document.getElementById('fibInput');
+            const n = parseInt(input.value);
+            const resultElement = document.getElementById('result');
+            
+            if (isNaN(n) || n < 0 || n > 100) {
+                resultElement.textContent = "Пожалуйста, введите число от 0 до 100";
+                resultElement.style.display = 'block';
+                return;
+            }
+            
+            const fibNumber = fibonacci(n);
+            resultElement.textContent = `F(${n}) = ${fibNumber}`;
+            resultElement.style.display = 'block';
+        });
+        
+        // Рисование красивой спирали Фибоначчи
+        function drawFibonacciSpiral() {
+            const svg = document.getElementById('fibonacciSpiral');
+            const ns = "http://www.w3.org/2000/svg";
+            
+            // Очистка SVG
+            while (svg.firstChild) {
+                svg.removeChild(svg.firstChild);
+            }
+            
+            // Генерация последовательности для спирали
+            const fibSequence = generateFibonacciSequence(10).slice(1); // Исключаем 0
+            
+            // Начальные координаты и размеры
+            let x = 250, y = 250;
+            let size = 5; // Масштабирующий коэффициент
+            
+            // Направления: 0 - вправо, 1 - вверх, 2 - влево, 3 - вниз
+            let direction = 0;
+            
+            // Создаем группу для спирали
+            const spiralGroup = document.createElementNS(ns, 'g');
+            svg.appendChild(spiralGroup);
+            
+            // Рисуем квадраты и дуги
+            let pathData = `M ${x} ${y}`;
+            
+            for (let i = 0; i < fibSequence.length; i++) {
+                const fibNum = fibSequence[i];
+                const side = fibNum * size;
+                
+                // Рисуем квадрат
+                const square = document.createElementNS(ns, 'rect');
+                square.setAttribute('x', x);
+                square.setAttribute('y', y);
+                square.setAttribute('width', side);
+                square.setAttribute('height', side);
+                square.setAttribute('fill', 'none');
+                square.setAttribute('stroke', '#e0e0e0');
+                square.setAttribute('stroke-width', '1');
+                spiralGroup.appendChild(square);
+                
+                // Добавляем дугу в спираль
+                let arcStartX, arcStartY, arcEndX, arcEndY, radius;
+                
+                switch (direction) {
+                    case 0: // вправо
+                        arcStartX = x;
+                        arcStartY = y;
+                        arcEndX = x + side;
+                        arcEndY = y + side;
+                        radius = side;
+                        pathData += ` A ${radius} ${radius} 0 0 1 ${arcEndX} ${arcEndY}`;
+                        x += side;
+                        break;
+                    case 1: // вверх
+                        arcStartX = x;
+                        arcStartY = y;
+                        arcEndX = x - side;
+                        arcEndY = y + side;
+                        radius = side;
+                        pathData += ` A ${radius} ${radius} 0 0 1 ${arcEndX} ${arcEndY}`;
+                        y += side;
+                        break;
+                    case 2: // влево
+                        arcStartX = x;
+                        arcStartY = y;
+                        arcEndX = x - side;
+                        arcEndY = y - side;
+                        radius = side;
+                        pathData += ` A ${radius} ${radius} 0 0 1 ${arcEndX} ${arcEndY}`;
+                        x -= side;
+                        break;
+                    case 3: // вниз
+                        arcStartX = x;
+                        arcStartY = y;
+                        arcEndX = x + side;
+                        arcEndY = y - side;
+                        radius = side;
+                        pathData += ` A ${radius} ${radius} 0 0 1 ${arcEndX} ${arcEndY}`;
+                        y -= side;
+                        break;
+                }
+                
+                // Меняем направление
+                direction = (direction + 1) % 4;
+                
+                // Корректируем координаты для следующего квадрата
+                switch (direction) {
+                    case 0: // вправо
+                        x -= fibSequence[i+1] * size;
+                        break;
+                    case 1: // вверх
+                        y -= fibSequence[i+1] * size;
+                        break;
+                    case 2: // влево
+                        x += fibSequence[i+1] * size;
+                        break;
+                    case 3: // вниз
+                        y += fibSequence[i+1] * size;
+                        break;
+                }
+            }
+            
+            // Создаем путь для спирали
+            const path = document.createElementNS(ns, 'path');
+            path.setAttribute('d', pathData);
+            path.setAttribute('fill', 'none');
+            path.setAttribute('stroke', '#4a69bd');
+            path.setAttribute('stroke-width', '3');
+            spiralGroup.appendChild(path);
+            
+            // Добавляем точку в центре спирали
+            const centerDot = document.createElementNS(ns, 'circle');
+            centerDot.setAttribute('cx', 250);
+            centerDot.setAttribute('cy', 250);
+            centerDot.setAttribute('r', 4);
+            centerDot.setAttribute('fill', '#e74c3c');
+            spiralGroup.appendChild(centerDot);
+        }
+        
+        // Инициализация при загрузке страницы
+        window.onload = function() {
+            displaySequence();
+            drawFibonacciSpiral();
+        };
+    </script>
+</body>
+</html>
